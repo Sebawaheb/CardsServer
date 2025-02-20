@@ -1,26 +1,32 @@
-const mongoose = require("mongoose");
-const Name = require("../../../helpers/mongodb/Name");
+const { mongoose } = require("mongoose");
 const { PHONE, EMAIL } = require("../../../helpers/mongodb/mongooseValidators");
-const Image = require("../../../helpers/mongodb/Image");
-const Address = require("../../../helpers/mongodb/Address");
+const { image } = require("../../../helpers/mongodb/image");
+const { Address } = require("../../../helpers/mongodb/Address");
+const { name } = require("../../../helpers/mongodb/name");
 
 const userSchema = new mongoose.Schema({
-    name: Name,
+    name: name,
     phone: PHONE,
     email: EMAIL,
     password: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
-    image: Image,
-    address: Address,
-    isAdmin: { type: Boolean, default: false },
-    isBusiness: { type: Boolean, default: false },
+    image: image,
+    Address: Address,
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    isBusiness: {
+        type: Boolean,
+        default: false
+    },
     createdAt: {
         type: Date,
-        default: Date.now,
-    },
+        default: new Date()
+    }
 });
 
 const User = mongoose.model("user", userSchema);

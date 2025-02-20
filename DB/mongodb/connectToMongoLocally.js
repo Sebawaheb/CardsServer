@@ -1,12 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const connectToLocalDb = async () => {
+const connectionStringForMongoDB = process.env.MONGODB_CONNECTION_STRING;
+if (!connectionStringForMongoDB) {
+    console.error(" MONGODB_CONNECTION_STRING is missing!");
+    process.exit(1); // עוצר את השרת אם אין חיבור
+}
+
+const connectToLocalDB = async () => {
     try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/cardsServer");
-        console.log("Connected to MongoDB locally");
-    } catch (error) {
-        console.error("Could not connect to MongoDB", error);
-    }
+        await mongoose.connect(connectionStringForMongoDB);
+        console.log('Connected to MongoDB locally');
+    } catch (error) { console.log('Error connecting to MongoDB:', error); }
 };
 
-module.exports = connectToLocalDb;
+module.exports = connectToLocalDB;

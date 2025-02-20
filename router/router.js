@@ -6,8 +6,10 @@ const { handleError } = require("../utils/handleErrors");
 
 router.use("/cards", cardsRouterController);
 router.use("/users", userRouterController);
+
 router.use((req, res) => {
     handleError(res, 404, "Path not found");
 });
+
 
 module.exports = router;

@@ -1,9 +1,15 @@
 const { mongoose } = require("mongoose");
 const { URL, DEFAULT_VALIDATION } = require("./mongooseValidators");
 
-const Image = new mongoose.Schema({
+const image = new mongoose.Schema({
     url: URL,
-    alt: DEFAULT_VALIDATION,
+    alt: {
+        type: String,
+        required: false,
+        maxLength: 256,
+        trim: true,
+        lowercase: true,
+    }
 });
 
-module.exports = Image;
+module.exports = { image };

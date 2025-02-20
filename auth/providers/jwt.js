@@ -1,27 +1,25 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+jwt = require("jsonwebtoken");
+require('dotenv').config();
 
-const SECRET_WORD = process.env.SECRET; //זוהי המילה הסודית שמשמשת להצפנה ולפענוח של הטוקנים.
-
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const generateAuthToken = (user) => {
-    const payload = { //Payload הוא אובייקט המכיל מידע על המשתמש. מידע זה "מקודד" לתוך הטוקן.
+    const payload = {
         _id: user._id,
         isAdmin: user.isAdmin,
-        isBusiness: user.isBusiness,
-        date: new Date(),
+        isBusiness: user.isBusiness
     };
-    const token = jwt.sign(payload, SECRET_WORD);
+    const token = jwt.sign(payload, JWT_SECRET);
     return token;
 };
 
-//לבדוק אם הטוקן שנשלח מהלקוח תקין ולפענח את המידע שבו.
 const verifyToken = (tokenFromClient) => {
     try {
-        const payload = jwt.verify(tokenFromClient, SECRET_WORD); //תפקידה הוא לבדוק אם הטוקן (tokenFromClient) תקין ולפענח את המידע שבו.
+        const payload = jwt.verify(tokenFromClient, JWT_SECRET);
         return payload;
-    } catch (error) {
-        return null; //אם הטוקן אינו תקין או פג תוקף, הפונקציה מחזירה null.
+    }
+    catch (error) {
+        return null;
     }
 };
 

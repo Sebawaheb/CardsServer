@@ -1,17 +1,15 @@
-const connectToAtlasDb = require("./mongodb/connectToAtlas");
-const connectToLocalDb = require("./mongodb/connectToMongoLocally");
+const connectToAtlasDB = require("./mongodb/connectToAtlas");
+const connectToLocalDB = require("./mongodb/connectToMongoLocally");
 const config = require("config");
 
-//const ENVIRONMENT = "development"; // development == test, production == live
-const ENVIRONMENT = config.get("ENVIRONMENT")
-
+const ENVIRONMENT = config.get("ENVIRONMENT");
 
 const connectToDB = async () => {
     if (ENVIRONMENT === "development") {
-        await connectToLocalDb();
+        await connectToLocalDB();
     }
     if (ENVIRONMENT === "production") {
-        await connectToAtlasDb();
+        await connectToAtlasDB();
     }
 };
 

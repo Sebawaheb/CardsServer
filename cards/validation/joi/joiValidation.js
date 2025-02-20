@@ -32,7 +32,7 @@ const joiValidateCard = (card) => {
                 alt: Joi.string().min(2).max(256).allow(""),
             })
             .required(),
-        address: Joi.object().keys({
+        Address: Joi.object().keys({
             state: Joi.string().allow(""),
             country: Joi.string().required(),
             city: Joi.string().required(),
